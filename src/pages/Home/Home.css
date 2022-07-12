@@ -1,0 +1,39 @@
+.home-content {
+  padding-top: 83px;
+}
+.introduces-icon {
+  font-size: 30px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+/* .introduces-icon::after {
+  content: "";
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+} */
+.introduces-box .fa {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+  border-radius: 50%;
+}
+.introduces-box .fa-coffee {
+  background-color: #edf7ee;
+  color: #4bac4d;
+}
+
+.introduces-box .fa-check {
+  background-color: #fff2f0;
+  color: #fd7464;
+}
+
+.introduces-box .fa-money {
+  background-color: #e8f4ff;
+  color: #1890ff;
+}
+
