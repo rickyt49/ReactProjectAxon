@@ -24,34 +24,35 @@ export default function Phone() {
 
   console.log(phones);
 
-  //   let renderPhone = () => {
-  //     phones.map((phone, id) => {
-  //       return (
-  //         <tr key={phone.id}>
-  //           <td scope="row">
-  //             {phone.model} {phone.color} {phone.memorySize}
-  //           </td>
-  //           <td>{phone.imei}</td>
-  //           <td>{phone.condition}</td>
-  //           <td>{phone.phoneStatus}</td>
-  //           <td>{phone.importPrice}</td>
-  //           <td>{phone.importDate}</td>
-  //           <td>
-  //             <span
-  //               className="fa fa-pencil-square text-primary"
-  //               aria-hidden="true"
-  //               style={{ fontSize: 25 }}
-  //             ></span>
-  //             <span
-  //               className="fa fa-trash text-danger"
-  //               aria-hidden="true"
-  //               style={{ fontSize: 25 }}
-  //             ></span>
-  //           </td>
-  //         </tr>
-  //       );
-  //     });
-  //   };
+  let renderPhone = () => {
+    let result = phones.map((phone, id) => {
+      return (
+        <tr key={phone.id}>
+          <td scope="row">
+            {phone.model} {phone.color} {phone.memorySize}
+          </td>
+          <td>{phone.imei}</td>
+          <td>{phone.condition}</td>
+          <td>{phone.phoneStatus}</td>
+          <td>{phone.importPrice}</td>
+          <td>{phone.importDate}</td>
+          <td>
+            <span
+              className="fa fa-pencil-square text-primary"
+              aria-hidden="true"
+              style={{ fontSize: 25 }}
+            ></span>
+            <span
+              className="fa fa-trash text-danger"
+              aria-hidden="true"
+              style={{ fontSize: 25 }}
+            ></span>
+          </td>
+        </tr>
+      );
+    });
+    return result;
+  };
 
   return (
     <section className="phone-content">
@@ -70,7 +71,7 @@ export default function Phone() {
               </tr>
             </thead>
             <tbody>
-              {phones.map((phone, id) => {
+              {/* {phones.map((phone, id) => {
                 return (
                   <tr key={phone.id}>
                     <td scope="row">
@@ -95,7 +96,8 @@ export default function Phone() {
                     </td>
                   </tr>
                 );
-              })}
+              })} */}
+              {renderPhone()}
             </tbody>
           </table>
         </div>
