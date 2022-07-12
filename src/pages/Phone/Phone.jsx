@@ -38,12 +38,12 @@ export default function Phone() {
           <td>{phone.importDate}</td>
           <td>
             <span
-              className="fa fa-pencil-square text-primary"
+              className="fa fa-pencil-square text-primary mx-2 function-icon"
               aria-hidden="true"
               style={{ fontSize: 25 }}
             ></span>
             <span
-              className="fa fa-trash text-danger"
+              className="fa fa-trash text-danger mx-2 function-icon"
               aria-hidden="true"
               style={{ fontSize: 25 }}
             ></span>
@@ -56,7 +56,9 @@ export default function Phone() {
 
   return (
     <section className="phone-content">
+      <h1 className="text-center">Phone page</h1>
       <div className="container">
+        <button className="btn btn-primary mb-3">Add Phone</button>
         <div>
           <table className="table">
             <thead>
