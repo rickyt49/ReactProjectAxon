@@ -22,7 +22,7 @@ export default function Phone() {
     getAllPhones();
   }, []);
 
-  console.log(phones);
+
 
   let renderPhone = () => {
     let result = phones.map((phone, id) => {
