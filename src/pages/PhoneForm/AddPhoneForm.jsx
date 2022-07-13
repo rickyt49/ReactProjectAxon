@@ -7,10 +7,10 @@ export default function AddPhoneForm() {
   const phoneCreationRef = useRef({
     imei: "",
     color: "",
-    memorySize: "",
+    memorySize: "64",
     phoneStatus: "AVAILABLE",
-    condition: "",
-    warranty: "",
+    condition: "NEW",
+    warranty: "3",
     importPrice: "",
     importDate: "",
     storeId: 0,
@@ -22,6 +22,7 @@ export default function AddPhoneForm() {
     phoneCreationRef.current[id] = value;
     console.log(phoneCreationRef.current);
   };
+
   const handleSubmit = (event) => {
     event.preventDefault();
     try {
@@ -30,13 +31,24 @@ export default function AddPhoneForm() {
         method: "POST",
         data: phoneCreationRef.current,
       });
+      alert();
     } catch (error) {
       console.log(error);
     }
   };
 
+  const alert = () => {
+    document.querySelector(
+      "#notification"
+    ).innerHTML = `<div className="alert alert-success">
+    <strong>Added</strong>
+  </div>
+  `;
+  };
+
   return (
     <div>
+      <div id="notification"></div>
       <form className="container" onSubmit={handleSubmit}>
         <h3>Add a new phone</h3>
         <div className="row">
@@ -64,10 +76,9 @@ export default function AddPhoneForm() {
                 name="memorySize"
                 id="memorySize"
                 onChange={handleChange}
+                defaultValue={64}
               >
-                <option value={64} selected="selected">
-                  64GB
-                </option>
+                <option value={64}>64GB</option>
                 <option value={128}>128GB</option>
                 <option value={256}>256GB</option>
                 <option value={512}>512GB</option>
@@ -80,10 +91,9 @@ export default function AddPhoneForm() {
                 name="warranty"
                 id="warranty"
                 onChange={handleChange}
+                defaultValue={3}
               >
-                <option value={3} selected="selected">
-                  3 Months
-                </option>
+                <option value={3}>3 Months</option>
                 <option value={6}>6 Months</option>
                 <option value={12}>12 Months</option>
               </select>
@@ -106,10 +116,9 @@ export default function AddPhoneForm() {
                 name="condition"
                 id="condition"
                 onChange={handleChange}
+                defaultValue={"NEW"}
               >
-                <option value={"NEW"} selected="selected">
-                  NEW
-                </option>
+                <option value={"NEW"}>NEW</option>
                 <option value={"USED"}>USED</option>
                 <option value={"CPO"}>CPO</option>
                 <option value={"REFURBISHED"}>REFURBISHED</option>
