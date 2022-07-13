@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ModalHOC(props) {
-    console.log(props);
+  
   return (
     <div>
       <div
@@ -12,10 +12,9 @@ export default function ModalHOC(props) {
         aria-labelledby="modelTitleId"
         aria-hidden="true"
       >
-        <div className="modal-dialog" role="document">
+        <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Modal title</h5>
               <button
                 type="button"
                 className="close"
@@ -33,9 +32,6 @@ export default function ModalHOC(props) {
                 data-dismiss="modal"
               >
                 Close
-              </button>
-              <button type="button" className="btn btn-primary">
-                Save
               </button>
             </div>
           </div>
