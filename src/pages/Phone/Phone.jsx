@@ -3,10 +3,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import "./Phone.css";
+import AddPhoneForm from "../PhoneForm/AddPhoneForm";
+import ModalHOC from "../../HOC/ModalHOC";
 
 export default function Phone() {
   const API_URL = "http://localhost:8080/api";
   const [phones, setPhones] = useState([]);
+  const [component, setComponent] = useState(<p>Default Component</p>);
+
   useEffect(() => {
     async function getAllPhones() {
       try {
@@ -22,13 +26,22 @@ export default function Phone() {
     getAllPhones();
   }, []);
 
-
+  let handleDelete = (id) => {
+    try {
+      axios({ url: `${API_URL}/phones/${id}`, method: "DELETE" });
+      setPhones([...phones.filter((phone) => phone.id !== id)]);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   let renderPhone = () => {
-    let result = phones.map((phone, id) => {
+    let result = phones.map((phone, index) => {
       return (
         <tr key={phone.id}>
-          <td scope="row">
+          <td>{index + 1}</td>
+
+          <td>
             {phone.model} {phone.color} {phone.memorySize}
           </td>
           <td>{phone.imei}</td>
@@ -46,6 +59,7 @@ export default function Phone() {
               className="fa fa-trash text-danger mx-2 function-icon"
               aria-hidden="true"
               style={{ fontSize: 25 }}
+              onClick={(e) => handleDelete(phone.id)}
             ></span>
           </td>
         </tr>
@@ -58,11 +72,21 @@ export default function Phone() {
     <section className="phone-content">
       <h1 className="text-center">Phone page</h1>
       <div className="container">
-        <button className="btn btn-primary mb-3">Add Phone</button>
+        <button
+          className="btn btn-primary mb-3"
+          data-toggle="modal"
+          data-target="#modelId"
+          onClick={() => {
+            setComponent(<AddPhoneForm />);
+          }}
+        >
+          Add Phone
+        </button>
         <div>
-          <table className="table">
+          <table className="table table-striped">
             <thead>
               <tr>
+                <th>No.</th>
                 <th>Phone</th>
                 <th>IMEI</th>
                 <th>Condition</th>
@@ -72,38 +96,11 @@ export default function Phone() {
                 <th></th>
               </tr>
             </thead>
-            <tbody>
-              {/* {phones.map((phone, id) => {
-                return (
-                  <tr key={phone.id}>
-                    <td scope="row">
-                      {phone.model} {phone.color} {phone.memorySize}
-                    </td>
-                    <td>{phone.imei}</td>
-                    <td>{phone.condition}</td>
-                    <td>{phone.phoneStatus}</td>
-                    <td>{phone.importPrice}</td>
-                    <td>{phone.importDate}</td>
-                    <td>
-                      <span
-                        className="fa fa-pencil-square text-primary mx-1"
-                        aria-hidden="true"
-                        style={{ fontSize: 25 }}
-                      ></span>
-                      <span
-                        className="fa fa-trash text-danger mx-1"
-                        aria-hidden="true"
-                        style={{ fontSize: 25 }}
-                      ></span>
-                    </td>
-                  </tr>
-                );
-              })} */}
-              {renderPhone()}
-            </tbody>
+            <tbody>{renderPhone()}</tbody>
           </table>
         </div>
       </div>
+      <ModalHOC modalContent={component}  />
     </section>
   );
 }
