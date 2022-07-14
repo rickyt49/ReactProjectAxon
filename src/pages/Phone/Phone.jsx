@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import "./Phone.css";
-import AddPhoneForm from "../PhoneForm/AddPhoneForm";
+import AddPhoneForm from "./PhoneForm/AddPhoneForm";
 import ModalHOC from "../../HOC/ModalHOC";
 
 export default function Phone() {
@@ -54,6 +54,9 @@ export default function Phone() {
               className="fa fa-pencil-square text-primary mx-2 function-icon"
               aria-hidden="true"
               style={{ fontSize: 25 }}
+              data-toggle="modal"
+              data-target="#modelId"
+              onClick={(e) => setComponent(<AddPhoneForm id={phone.id} />)}
             ></span>
             <span
               className="fa fa-trash text-danger mx-2 function-icon"
@@ -100,7 +103,7 @@ export default function Phone() {
           </table>
         </div>
       </div>
-      <ModalHOC modalContent={component}  />
+      <ModalHOC modalContent={component} />
     </section>
   );
 }

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ModalHOC(props) {
+export default function ModalHOC({modalContent}) {
   
   return (
     <div>
@@ -24,7 +24,7 @@ export default function ModalHOC(props) {
                 <span aria-hidden="true">×</span>
               </button>
             </div>
-            <div className="modal-body">{props.modalContent}</div>
+            <div className="modal-body">{modalContent}</div>
             <div className="modal-footer">
               <button
                 type="button"

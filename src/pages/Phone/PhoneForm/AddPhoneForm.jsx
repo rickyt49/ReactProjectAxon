@@ -1,8 +1,9 @@
 import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 import { useRef } from "react";
 
-export default function AddPhoneForm() {
+export default function AddPhoneForm({ id }) {
   const API_URL = "http://localhost:8080/api";
   const phoneCreationRef = useRef({
     imei: "",
@@ -17,13 +18,34 @@ export default function AddPhoneForm() {
     supplierId: 0,
     specificationModel: "",
   });
+
+  if (id) {
+    async function getAllPhones() {
+      try {
+        const { data } = await axios({
+          url: `${API_URL}/phones/${id}`,
+          method: "GET",
+        });
+        bindUpdateData(data);
+        console.log(phoneCreationRef.current);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getAllPhones();
+  }
+
+  const bindUpdateData = (data) => {
+    phoneCreationRef.current.imei = data.imei;
+  };
+
   const handleChange = (event) => {
     let { id, value } = event.target;
     phoneCreationRef.current[id] = value;
     console.log(phoneCreationRef.current);
   };
 
-  const handleSubmit = (event) => {
+  const handleAddSubmit = (event) => {
     event.preventDefault();
     try {
       axios({
@@ -31,17 +53,16 @@ export default function AddPhoneForm() {
         method: "POST",
         data: phoneCreationRef.current,
       });
-      alert();
     } catch (error) {
       console.log(error);
     }
   };
 
-  const alert = () => {
+  const alert = async () => {
     document.querySelector(
       "#notification"
-    ).innerHTML = `<div className="alert alert-success">
-    <strong>Added</strong>
+    ).innerHTML = `<div class="alert alert-success">
+    <strong>Phone added successfully</strong>
   </div>
   `;
   };
@@ -49,7 +70,7 @@ export default function AddPhoneForm() {
   return (
     <div>
       <div id="notification"></div>
-      <form className="container" onSubmit={handleSubmit}>
+      <form className="container" onSubmit={handleAddSubmit}>
         <h3>Add a new phone</h3>
         <div className="row">
           <div className="col-6">
@@ -67,6 +88,7 @@ export default function AddPhoneForm() {
                 className="form-control"
                 id="imei"
                 onChange={handleChange}
+                
               />
             </div>
             <div className="form-group">
