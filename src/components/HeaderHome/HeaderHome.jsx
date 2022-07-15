@@ -1,14 +1,14 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 export default function HeaderHome() {
   return (
     <header>
       <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top">
         <div className="container">
-          <NavLink className="navbar-brand" to="/">
+          <Link className="navbar-brand" to="/">
             <img src="./img/logo.png" alt="logo" />
-          </NavLink>
+          </Link>
           <button
             className="navbar-toggler d-lg-none"
             type="button"
@@ -23,40 +23,40 @@ export default function HeaderHome() {
           <div className="collapse navbar-collapse" id="collapsibleNavId">
             <ul className="navbar-nav ml-auto mt-2 mt-lg-0 d-flex justify-content-between">
               <li className="nav-item active">
-                <NavLink className="nav-link" to="/underconstruction">
+                <Link className="nav-link" to="/underconstruction">
                   How We Work <span className="sr-only">(current)</span>
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/underconstruction">
-                  Services
-                </NavLink>
+                <Link className="nav-link" to="/phones">
+                  Phones
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/underconstruction">
+                <Link className="nav-link" to="/underconstruction">
                   Our Fees
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink className="nav-link" to="/underconstruction">
+                <Link className="nav-link" to="/underconstruction">
                   Contact Us
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   className="btn btn-outline-success"
                   to="/underconstruction"
                 >
                   Register
-                </NavLink>
+                </Link>
               </li>
               <li className="nav-item">
-                <NavLink
+                <Link
                   className="btn btn-success mt-2 mt-md-0 ml-md-2"
                   to="/underconstruction"
                 >
                   Login
-                </NavLink>
+                </Link>
               </li>
             </ul>
             {/* <form className="form-inline my-2 my-lg-0">

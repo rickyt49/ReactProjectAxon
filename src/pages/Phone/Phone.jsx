@@ -104,7 +104,7 @@ export default function Phone() {
           </table>
         </div>
       </div>
-      <ModalHOC modalContent={component} />
+      <ModalHOC modalContent={component} edit={edit} />
     </section>
   );
 }

@@ -58,12 +58,31 @@ export default function EditPhoneForm({ id }) {
         url: `${API_URL}/phones/${id}`,
         method: "PUT",
         data: newInput,
+      }).then((p) => {
+        if (p.status === 200) {
+          alertSuccess();
+        }
       });
     } catch (error) {
       console.log(error);
     }
   };
-
+  const alertSuccess = async () => {
+    document.querySelector(
+      "#notification"
+    ).innerHTML = `<div class="alert alert-success">
+    <strong>Edited successfully</strong>
+  </div>
+  `;
+  };
+  const alertError = async () => {
+    document.querySelector(
+      "#notification"
+    ).innerHTML = `<div class="alert alert-danger">
+    <strong>Edited failed</strong>
+  </div>
+  `;
+  };
   return (
     <div>
       <div id="notification"></div>

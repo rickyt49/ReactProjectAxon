@@ -32,6 +32,10 @@ export default function AddPhoneForm() {
         url: `${API_URL}/phones/`,
         method: "POST",
         data: phoneCreationRef.current,
+      }).then((p) => {
+        if (p.status === 200) {
+          alert();
+        }
       });
       phoneCreationRef = {
         imei: "",
@@ -51,6 +55,14 @@ export default function AddPhoneForm() {
     }
   };
 
+  const alert = async () => {
+    document.querySelector(
+      "#notification"
+    ).innerHTML = `<div class="alert alert-success">
+    <strong>Phone added successfully</strong>
+  </div>
+  `;
+  };
 
   return (
     <div>
