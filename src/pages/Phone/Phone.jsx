@@ -5,12 +5,13 @@ import axios from "axios";
 import "./Phone.css";
 import AddPhoneForm from "./PhoneForm/AddPhoneForm";
 import ModalHOC from "../../HOC/ModalHOC";
+import EditPhoneForm from "./PhoneForm/EditPhoneForm";
 
 export default function Phone() {
   const API_URL = "http://localhost:8080/api";
   const [phones, setPhones] = useState([]);
   const [component, setComponent] = useState(<p>Default Component</p>);
-
+  const [edit, setEdit] = useState("");
   useEffect(() => {
     async function getAllPhones() {
       try {
@@ -42,7 +43,7 @@ export default function Phone() {
           <td>{index + 1}</td>
 
           <td>
-            {phone.model} {phone.color} {phone.memorySize}
+            {phone.specificationModel} {phone.color} {phone.memorySize}
           </td>
           <td>{phone.imei}</td>
           <td>{phone.condition}</td>
@@ -56,7 +57,7 @@ export default function Phone() {
               style={{ fontSize: 25 }}
               data-toggle="modal"
               data-target="#modelId"
-              onClick={(e) => setComponent(<AddPhoneForm id={phone.id} />)}
+              onClick={(e) => setComponent(<EditPhoneForm id={phone.id} />)}
             ></span>
             <span
               className="fa fa-trash text-danger mx-2 function-icon"

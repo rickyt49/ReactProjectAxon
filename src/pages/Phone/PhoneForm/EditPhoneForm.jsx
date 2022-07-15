@@ -1,62 +1,74 @@
 import axios from "axios";
 import React from "react";
+import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-export default function AddPhoneForm() {
+export default function EditPhoneForm({ id }) {
   const API_URL = "http://localhost:8080/api";
-  const phoneCreationRef = useRef({
+
+  const [userInput, setUserInput] = useState({
     imei: "",
     color: "",
-    memorySize: "64",
-    phoneStatus: "AVAILABLE",
-    condition: "NEW",
-    warranty: "3",
+    memorySize: "",
+    phoneStatus: "",
+    condition: "",
+    warranty: "",
     importPrice: "",
     importDate: "",
-    storeId: 0,
-    supplierId: 0,
+    storeId: "",
+    supplierId: "",
     specificationModel: "",
+    id: "",
   });
+
+  useEffect(() => {
+    async function getPhone() {
+      try {
+        const { data } = await axios({
+          url: `${API_URL}/phones/${id}`,
+          method: "GET",
+        });
+
+        setUserInput({ ...data });
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getPhone();
+  }, [id]);
 
   const handleChange = (event) => {
     let { id, value } = event.target;
-    phoneCreationRef.current[id] = value;
-    console.log(phoneCreationRef.current);
+
+    setUserInput({
+      ...userInput,
+      [id]: value,
+    });
   };
 
   const handleAddSubmit = (event) => {
     event.preventDefault();
+    let newInput = Object.assign({}, { ...userInput });
+    newInput.memorySize = newInput.memorySize.split(" ")[0];
+    delete newInput.id;
+    console.log(newInput);
     try {
       axios({
-        url: `${API_URL}/phones/`,
-        method: "POST",
-        data: phoneCreationRef.current,
+        url: `${API_URL}/phones/${id}`,
+        method: "PUT",
+        data: newInput,
       });
-      phoneCreationRef = {
-        imei: "",
-        color: "",
-        memorySize: "64",
-        phoneStatus: "AVAILABLE",
-        condition: "NEW",
-        warranty: "3",
-        importPrice: "",
-        importDate: "",
-        storeId: 0,
-        supplierId: 0,
-        specificationModel: "",
-      };
     } catch (error) {
       console.log(error);
     }
   };
 
-
   return (
     <div>
       <div id="notification"></div>
       <form className="container" onSubmit={handleAddSubmit}>
-        <h3>Add a new phone</h3>
+        <h3>Edit panel</h3>
         <div className="row">
           <div className="col-6">
             <div className="form-group">
@@ -65,6 +77,7 @@ export default function AddPhoneForm() {
                 className="form-control"
                 id="specificationModel"
                 onChange={handleChange}
+                defaultValue={userInput.specificationModel}
               />
             </div>
             <div className="form-group">
@@ -73,6 +86,7 @@ export default function AddPhoneForm() {
                 className="form-control"
                 id="imei"
                 onChange={handleChange}
+                value={userInput.imei}
               />
             </div>
             <div className="form-group">
@@ -82,7 +96,7 @@ export default function AddPhoneForm() {
                 name="memorySize"
                 id="memorySize"
                 onChange={handleChange}
-                defaultValue={64}
+                value={userInput.memorySize}
               >
                 <option value={64}>64GB</option>
                 <option value={128}>128GB</option>
@@ -97,7 +111,7 @@ export default function AddPhoneForm() {
                 name="warranty"
                 id="warranty"
                 onChange={handleChange}
-                defaultValue={3}
+                value={userInput.warranty}
               >
                 <option value={3}>3 Months</option>
                 <option value={6}>6 Months</option>
@@ -110,6 +124,7 @@ export default function AddPhoneForm() {
                 className="form-control"
                 id="color"
                 onChange={handleChange}
+                value={userInput.color}
               />
             </div>
           </div>
@@ -122,7 +137,7 @@ export default function AddPhoneForm() {
                 name="condition"
                 id="condition"
                 onChange={handleChange}
-                defaultValue={"NEW"}
+                value={userInput.condition}
               >
                 <option value={"NEW"}>NEW</option>
                 <option value={"USED"}>USED</option>
@@ -137,6 +152,7 @@ export default function AddPhoneForm() {
                 id="importPrice"
                 type="number"
                 onChange={handleChange}
+                value={userInput.importPrice}
               />
             </div>
             <div className="form-group">
@@ -146,6 +162,7 @@ export default function AddPhoneForm() {
                 id="importDate"
                 type="date"
                 onChange={handleChange}
+                value={userInput.importDate}
               />
             </div>
             <div className="form-group">
@@ -155,6 +172,7 @@ export default function AddPhoneForm() {
                 id="storeId"
                 type="number"
                 onChange={handleChange}
+                value={userInput.storeId}
               />
             </div>
             <div className="form-group">
@@ -164,11 +182,12 @@ export default function AddPhoneForm() {
                 id="supplierId"
                 type="number"
                 onChange={handleChange}
+                value={userInput.supplierId}
               />
             </div>
             <div className="form-group">
               <button className="btn btn-success" type="submit">
-                Create
+                Save
               </button>
             </div>
           </div>
