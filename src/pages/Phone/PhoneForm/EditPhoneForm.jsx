@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-export default function EditPhoneForm({ id }) {
+export default function EditPhoneForm({ id, submitRender }) {
   const API_URL = "http://localhost:8080/api";
 
   const [userInput, setUserInput] = useState({
@@ -61,6 +61,7 @@ export default function EditPhoneForm({ id }) {
       }).then((p) => {
         if (p.status === 200) {
           alertSuccess();
+          submitRender();
         }
       });
     } catch (error) {

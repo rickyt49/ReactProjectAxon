@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ModalHOC({ modalContent, edit }) {
+export default function ModalHOC({ modalContent }) {
   return (
     <div>
       <div

@@ -27,6 +27,19 @@ export default function Phone() {
     getAllPhones();
   }, []);
 
+  let submitRender = async () => {
+    try {
+      const { data } = await axios({
+        url: `${API_URL}/phones`,
+        method: "GET",
+      });
+      setPhones(data);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   let handleDelete = (id) => {
     try {
       axios({ url: `${API_URL}/phones/${id}`, method: "DELETE" });
@@ -57,7 +70,11 @@ export default function Phone() {
               style={{ fontSize: 25 }}
               data-toggle="modal"
               data-target="#modelId"
-              onClick={(e) => setComponent(<EditPhoneForm id={phone.id} />)}
+              onClick={(e) =>
+                setComponent(
+                  <EditPhoneForm id={phone.id} submitRender={submitRender} />
+                )
+              }
             ></span>
             <span
               className="fa fa-trash text-danger mx-2 function-icon"
@@ -81,7 +98,7 @@ export default function Phone() {
           data-toggle="modal"
           data-target="#modelId"
           onClick={() => {
-            setComponent(<AddPhoneForm />);
+            setComponent(<AddPhoneForm submitRender={submitRender} />);
           }}
         >
           Add Phone
@@ -104,7 +121,7 @@ export default function Phone() {
           </table>
         </div>
       </div>
-      <ModalHOC modalContent={component} edit={edit} />
+      <ModalHOC modalContent={component} />
     </section>
   );
 }
