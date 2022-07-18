@@ -5,7 +5,7 @@ import { useRef } from "react";
 
 export default function AddPhoneForm({ submitRender }) {
   const API_URL = "http://localhost:8080/api";
-  const phoneCreationRef = useRef({
+  let phoneCreationRef = useRef({
     imei: "",
     color: "",
     memorySize: "64",
@@ -36,24 +36,28 @@ export default function AddPhoneForm({ submitRender }) {
         if (p.status === 200) {
           alert();
           submitRender();
+          resetData();
         }
       });
-      phoneCreationRef = {
-        imei: "",
-        color: "",
-        memorySize: "64",
-        phoneStatus: "AVAILABLE",
-        condition: "NEW",
-        warranty: "3",
-        importPrice: "",
-        importDate: "",
-        storeId: 0,
-        supplierId: 0,
-        specificationModel: "",
-      };
     } catch (error) {
       console.log(error);
     }
+  };
+
+  let resetData = async () => {
+    phoneCreationRef = {
+      imei: "",
+      color: "",
+      memorySize: "64",
+      phoneStatus: "AVAILABLE",
+      condition: "NEW",
+      warranty: "3",
+      importPrice: "",
+      importDate: "",
+      storeId: 0,
+      supplierId: 0,
+      specificationModel: "",
+    };
   };
 
   const alert = async () => {

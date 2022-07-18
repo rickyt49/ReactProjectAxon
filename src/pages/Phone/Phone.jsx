@@ -34,7 +34,7 @@ export default function Phone() {
         method: "GET",
       });
       setPhones(data);
-      // console.log(data);
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +43,8 @@ export default function Phone() {
   let handleDelete = (id) => {
     try {
       axios({ url: `${API_URL}/phones/${id}`, method: "DELETE" }).then((p) => {
-        if (p.status === 200) {
+        console.log(p);
+        if (p.status === 204) {
           setPhones([...phones.filter((phone) => phone.id !== id)]);
         }
       });
@@ -68,9 +69,9 @@ export default function Phone() {
           <td>{phone.importDate}</td>
           <td>
             <span
-              className="fa fa-pencil-square text-primary mx-2 function-icon"
+              className="fa fa-pencil text-primary mx-2 function-icon"
               aria-hidden="true"
-              style={{ fontSize: 25 }}
+              style={{ fontSize: 20 }}
               data-toggle="modal"
               data-target="#modelId"
               onClick={(e) =>
@@ -82,7 +83,7 @@ export default function Phone() {
             <span
               className="fa fa-trash text-danger mx-2 function-icon"
               aria-hidden="true"
-              style={{ fontSize: 25 }}
+              style={{ fontSize: 20 }}
               onClick={(e) => handleDelete(phone.id)}
             ></span>
           </td>
