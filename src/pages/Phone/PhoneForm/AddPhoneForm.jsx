@@ -3,7 +3,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useRef } from "react";
 
-export default function AddPhoneForm() {
+export default function AddPhoneForm({ submitRender }) {
   const API_URL = "http://localhost:8080/api";
   const phoneCreationRef = useRef({
     imei: "",
@@ -35,6 +35,7 @@ export default function AddPhoneForm() {
       }).then((p) => {
         if (p.status === 200) {
           alert();
+          submitRender();
         }
       });
       phoneCreationRef = {
