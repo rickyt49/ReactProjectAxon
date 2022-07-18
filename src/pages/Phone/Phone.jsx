@@ -29,8 +29,11 @@ export default function Phone() {
 
   let handleDelete = (id) => {
     try {
-      axios({ url: `${API_URL}/phones/${id}`, method: "DELETE" });
-      setPhones([...phones.filter((phone) => phone.id !== id)]);
+      axios({ url: `${API_URL}/phones/${id}`, method: "DELETE" }).then((p) => {
+        if (p.status === 200) {
+          setPhones([...phones.filter((phone) => phone.id !== id)]);
+        }
+      });
     } catch (error) {
       console.log(error);
     }
